@@ -34,6 +34,7 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # write your own comment - what does this do? - insert the variable on a talbe
 streamlit.dataframe(fruityvice_normalized)
 
+pip install snowflake-connector-python
 import snowflake.connector
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
