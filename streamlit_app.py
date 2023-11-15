@@ -50,6 +50,7 @@ except URLError as e:
 #streamlit.stop()
 
 
+streamlit.header("The fruitlist contains:")
 #Snowflake-related functions
 def get_fruit_load_list():
   with conn.cursor() as my_cur:
@@ -57,19 +58,11 @@ def get_fruit_load_list():
     #conn.execute("select * from fruit_load_list;")
     return my_cur.fetchall()
 
-#@streamlit.experimental_singleton
-def init_connection():
-    return psycopg2.connect(**streamlit.secrets["postgres"])
-
   
-streamlit.header("View Our Fruit List - Add Your Favorites!")
 # Add a button to load the fruit
 if streamlit.button('Get Fruit List'):
-  conn = init_connection()
-  #my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-  my_data_rows = get_fruit_load_list()
-  conn.close()
-  #my_cnx.close()
+  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+  my_data_rows = get_fruit_load_list()  
   streamlit.dataframe(my_data_rows)
 
 
